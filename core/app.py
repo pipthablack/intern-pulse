@@ -41,6 +41,17 @@ def find_user_by_id(user_id):
     """
     return User.query.get(user_id)
 
+
+@app.route('/')
+def hello():
+    return jsonify(message="Hello from Flask on Vercel!")
+
+# If the app is running within Vercel's serverless function, it should be wrapped like this:
+def handler(event, context):
+    from werkzeug.serving import run_simple
+    return run_simple("0.0.0.0", 5000, app)
+
+
 @app.route('/users', methods=['POST'])
 def create_user():
     """
